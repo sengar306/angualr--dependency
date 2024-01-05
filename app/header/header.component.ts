@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { subscriberServices } from '../service/subscriber.service';
+import { Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  providers:[subscriberServices]
 })
 export class HeaderComponent {
+  subservice:subscriberServices;
+  constructor(subservice:subscriberServices)
+  {
+    this.subservice=subservice;
+  }
   selectedTab: string = 'home';
 
   //When HOME Link is clicked
@@ -18,7 +25,6 @@ export class HeaderComponent {
     this.selectedTab = 'admin';
   }
   onSubscribe(){
-    let subservice=new subscriberServices();
-    subservice.onsubscribeClicked('quaterly');
+    this.subservice.onsubscribeClicked("yearly");
   }
 }
